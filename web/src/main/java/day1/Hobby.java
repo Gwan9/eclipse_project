@@ -15,10 +15,14 @@ public class Hobby extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		// 1. 파라미터 값 가져오기
 		String h =req.getParameter("hobby");
-		resp.setCharacterEncoding("UTF-8");
+		
+		// 2. PrintWriter 객체 얻어오기
 		PrintWriter out = resp.getWriter();
 		
+		resp.setCharacterEncoding("UTF-8");
+		// 3. 브라우저 출력
 		out.println("<html>");
 		out.println("<head>");
 		out.println("<meta charset='UTF-8'>");

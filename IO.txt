@@ -1,0 +1,16 @@
+	
+
+	byte Stream                                       char   Stream 
+
+             InputStream       FileInputStream            Reader     FileReader
+                                    BufferedInputStream                   BufferedReader
+                                                                                  InputStreamReader
+		          DataInputStream
+		          ObjectInputStream
+
+	OutputStream    FileOutputStream           Writer    FileWriter 
+                                   BufferedOutputStream                 BufferedWriter 
+                                                                                 OutputStreamWriter
+                                   DataOutputStream
+                                   PrintStream                               PrintWriter 
+                                   ObjectOutputStream

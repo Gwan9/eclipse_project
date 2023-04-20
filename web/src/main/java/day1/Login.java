@@ -2,6 +2,7 @@ package day1;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet ("/login.do")
+//@WebServlet ("/login.do")
 public class Login extends HttpServlet{
 	// 200 : 정상처리
 	// 404 : 자원을 못 찾음
@@ -19,7 +20,18 @@ public class Login extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		doPro(req, resp);
+		
+	}
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		// 1. 한글처리
+		doPro(req, resp);
+		
+	}
+	private void doPro(HttpServletRequest req, HttpServletResponse resp)
+			throws UnsupportedEncodingException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html;charset=UTF-8");
 		// 2. 파라미터 값 가져오기
@@ -44,6 +56,5 @@ public class Login extends HttpServlet{
 		
 		out.println("</body>");
 		out.println("</html>");
-		
 	}
 }

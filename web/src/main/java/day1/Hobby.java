@@ -21,7 +21,8 @@ public class Hobby extends HttpServlet{
 		// 2. PrintWriter 객체 얻어오기
 		PrintWriter out = resp.getWriter();
 		
-		resp.setCharacterEncoding("UTF-8");
+		req.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html;charset=UTF-8");
 		// 3. 브라우저 출력
 		out.println("<html>");
 		out.println("<head>");

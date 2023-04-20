@@ -19,9 +19,10 @@ public class GuGudan3 extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("GuGuDan3() 서블릿 실행중");
 		PrintWriter out = resp.getWriter();
-		
+		resp.setCharacterEncoding("UTF-8");
 		out.println("<html>");
 		out.println("<head>");
+		out.println("<meta charset='UTF-8'>");
 		out.println("<title>구구단</title>");
 		out.println("</head>");
 		out.println("<body>");

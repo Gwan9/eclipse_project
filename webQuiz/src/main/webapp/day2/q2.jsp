@@ -7,26 +7,18 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<form>
+  <input type="text" name="input" id="input">
+  <input type="submit" value="submit"></input>
+</form>
+
+
 	<%
 	String input = request.getParameter("input");
-	String value = request.getParameter("");
 	
-	String a = "";
-/* 
-	boolean b = true;
-	if(a != ){
-		b = false;
-		out.println("dd");
-		} */
-	
-	
-	%>
-	<input type="text" name="input" id="" value="<%=a%>" />
-	<input type="button" name="" id="" value="클릭" />
-	
-	
-	
-	
+	if(input == null){
+	 %>alert('값을 입력하세요.');<%
+	 }%>
 	
 </body>
 </html>

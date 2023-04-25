@@ -70,7 +70,7 @@ public class MemberDAO {
 		
 		
 	}
-	public ArrayList<MemberVO> selectAll(){
+		public ArrayList<MemberVO> selectAll(){
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
 		
 		sb.setLength(0);// 길이를 0으로 : (이전 데이터 지워서 초기화)
@@ -105,16 +105,16 @@ public class MemberDAO {
 		
 		// 4. SQL 문장
 		sb.setLength(0);
-		sb.append("Insert into member values(?,?,?,?,?,?)");
+		sb.append("Insert into member values(mem_no_seq.nextval,?,?,?,?,?)");
 		// 5. 문장객체
 		try {
 		pstmt = conn.prepareStatement(sb.toString());
-		pstmt.setInt(1, vo.getNo());
-		pstmt.setString(2, vo.getId());
-		pstmt.setString(3, vo.getPw());
-		pstmt.setString(4, vo.getName());
-		pstmt.setString(5, vo.getGender());
-		pstmt.setString(6, vo.getMotive());
+//		pstmt.setInt(1, vo.getNo());
+		pstmt.setString(1, vo.getId());
+		pstmt.setString(2, vo.getPw());
+		pstmt.setString(3, vo.getName());
+		pstmt.setString(4, vo.getGender());
+		pstmt.setString(5, vo.getMotive());
 		// 6. 실행
 		
 		pstmt.executeUpdate();

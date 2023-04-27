@@ -77,7 +77,7 @@ text-align : center;
 	// 화면에 표형태로 출력
 	// 맵에서 상품의 번호만 가져오기
 	
-	Set key = map.keySet(); // 상품번호만 set 타입으로 리턴
+	Set key = map.keySet(); // 상품번호만 set 타입으로 리턴 //
 	// ex) 110, 121 물건의 가격, 이미지, 할인율
 
 	ProductDAO dao = new ProductDAO();

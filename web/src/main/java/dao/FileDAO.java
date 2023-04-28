@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import vo.FileVO;
 
@@ -54,8 +55,32 @@ public class FileDAO {
 			e.printStackTrace();
 		}
 		
-		
-	
+	}
+		public ArrayList<FileVO> selectAll(){
+			ArrayList<FileVO> list = new ArrayList<FileVO>();
+			sb.setLength(0);
+			sb.append("select * from fileuploadtest");
+			
+			try {
+			pstmt = conn.prepareStatement(sb.toString());
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int no = rs.getInt("no");
+				String title = rs.getString("title");
+				String writer = rs.getString("writer");
+				String contents = rs.getString("contents");
+				String filename = rs.getString("filename");
+				
+				FileVO vo = new FileVO(no, title, writer,contents, filename);
+				list.add(vo);
+				
+			}
+		}catch(SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			return list;
 	}
 	
 	

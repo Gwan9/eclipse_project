@@ -40,5 +40,6 @@
 	<h2>파일명: <%= f %></h2>e
 	
 	<a href="view.jsp">이미지 보러가기</a>
+	<a href="dirView.jsp">디렉토리의 파일목록 보기</a>
 </body>
 </html>

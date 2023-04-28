@@ -20,8 +20,9 @@ public FileVO(String title, String writer, String contents, String filename) {
 	this.writer = writer;
 	this.contents = contents;
 	this.filename = filename;
-
 }
+
+
 }
 
 

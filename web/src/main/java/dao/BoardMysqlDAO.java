@@ -9,18 +9,18 @@ import java.util.ArrayList;
 
 import vo.BoardVO;
 
-public class BoardDAO {
+public class BoardMysqlDAO {
 
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@192.168.0.3:1521:orcl";
+	String driver = "com.mysql.cj.jdbc.Driver";
+	String url = "jdbc:mysql://database-1.cncq0y7vi9iu.ap-northeast-2.rds.amazonaws.com:3306/orcl";
 	String user = "scott";
-	String password = "tiger";
+	String password = "tigertiger12";
 	Connection conn;
 	PreparedStatement pstmt;
 	ResultSet rs;
 	StringBuffer sb = new StringBuffer();
 
-	public BoardDAO() {
+	public BoardMysqlDAO() {
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, user, password);
@@ -34,22 +34,18 @@ public class BoardDAO {
 		}
 
 	}
-	public ArrayList<BoardVO> selectAll(int startNo, int endNo){
+	public ArrayList<BoardVO> selectAll(int startNo, int recordPerPage){
 	ArrayList<BoardVO> list = new ArrayList<BoardVO>();
 	
 	sb.setLength(0);
-	sb.append("SELECT rn, bno, writer, title ,contents,regdate,hits,ip,status  ");
-	sb.append("FROM (select ROWNUM rn,bno, writer, title ,contents,regdate,hits,ip,status  ");
-	sb.append("	FROM(SELECT bno, writer, title ,contents,regdate,hits,ip,status  ");
-	sb.append("	FROM BOARD ");
-	sb.append("	order BY BNO DESC) ");
-	sb.append("	WHERE ROWNUM <= ?) ");
-	sb.append("WHERE rn >= ? ");
-	
+	sb.append("select * ");
+	sb.append("from BOARD ");
+	sb.append("order by bno desc ");
+	sb.append("limit ? , ? ");
 	try {
 		pstmt = conn.prepareStatement(sb.toString());
-		pstmt.setInt(1, endNo);
-		pstmt.setInt(2, startNo);
+		pstmt.setInt(1, startNo-1);
+		pstmt.setInt(2, recordPerPage);	
 		rs = pstmt.executeQuery();
 		
 		while(rs.next()) {
@@ -75,34 +71,35 @@ public class BoardDAO {
 	
 	}
 	
-	public void addOne(String writer,String title,String contents,String regdate,int hits,String ip,int status ) {
-		
-		sb.setLength(0);
-		sb.append("insert into board values (board_bno_seq.nextval, ?, ?, ?,sysdate,0,?,1)");
-		
-		try {
-			pstmt = conn.prepareStatement(sb.toString());
-			
-			pstmt.setString(1, writer);
-			pstmt.setString(2, title);
-			pstmt.setString(3, contents);
-			pstmt.setString(4, ip);
-			// 상태 정보 :  1 정상글
-			// 		 	 2 블라인드처리
-			//			 3 경찰요청
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	
-	
-	
-	}
+//	public void addOne(String writer,String title,String contents,String regdate,int hits,String ip,int status ) {
+//		
+//		sb.setLength(0);
+//		sb.append("insert into BOARD values (BOARD_bno_seq.nextval, ?, ?, ?,sysdate,0,?,1)");
+//		
+//		try {
+//			pstmt = conn.prepareStatement(sb.toString());
+//			
+//			pstmt.setString(1, writer);
+//			pstmt.setString(2, title);
+//			pstmt.setString(3, contents);
+//			pstmt.setString(4, ip);
+//			// 상태 정보 :  1 정상글
+//			// 		 	 2 블라인드처리
+//			//			 3 경찰요청
+//			pstmt.executeUpdate();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//	
+//	
+//	
+//	}
 	public void addOne(BoardVO vo) {
 		sb.setLength(0);
-		sb.append("insert into board values (board_bno_seq.nextval, ?, ?, ?, sysdate ,0 ,?,1 )");
+		sb.append("insert into BOARD (writer, title, contents,regdate, hits, ip, status )");
+		sb.append("values (?, ?, ?, now(),0,?,1)");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
@@ -125,7 +122,7 @@ public class BoardDAO {
 	public BoardVO selectOne(int bno) {
 		BoardVO vo = null;
 		sb.setLength(0);
-		sb.append("select * from Board where bno = ?");
+		sb.append("select * from BOARD where bno = ?");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
@@ -158,9 +155,9 @@ public class BoardDAO {
 	
 	public void updateOne(BoardVO vo) {
 		sb.setLength(0);
-		sb.append("update Board ");
-		sb.append("set title = ? , contents = ?  , regdate=sysdate ");
-		sb.append("where bno=? ");
+		sb.append("update BOARD set title = ? , contents = ? where bno=? ");
+//		sb.append("set title = ? , contents = ?  , regdate=sysdate ");
+//		sb.append("where bno=? ");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
@@ -177,7 +174,7 @@ public class BoardDAO {
 	public void deleteOne(int vo) {
 		
 		sb.setLength(0);
-		sb.append("delete from board where bno = ? ");
+		sb.append("delete from BOARD where bno = ? ");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
@@ -194,7 +191,7 @@ public class BoardDAO {
 	
 	public int getTotalCount(){
 		sb.setLength(0);
-		sb.append("select count(*) cnt from board ");
+		sb.append("select count(*) cnt from BOARD ");
 		int cnt = 0;
 		
 		try {

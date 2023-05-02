@@ -99,6 +99,36 @@ public class ProductDAO {
 		return vo;
 
 	}
+	public ProductVO findByName(String pname) {
+		ProductVO vo = null;
+		sb.setLength(0);
+		sb.append("select * from product where pname = ?");
+
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setString(1, pname);
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				int pno = rs.getInt("pno");
+				int price = rs.getInt("price");
+				int dcratio = rs.getInt("dcratio");
+				String prodesc = rs.getString("prodesc");
+				int qty = rs.getInt("qty");
+				String imgfile = rs.getString("imgfile");
+				String bigfile = rs.getString("bigfile");
+				vo = new ProductVO(pno, pname, price, dcratio, prodesc, qty, imgfile, bigfile);
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return vo;
+
+	}
 
 	public ArrayList<ProductVO> getData(Set<Integer> key) {
 		ArrayList<ProductVO> list = new ArrayList<ProductVO>();

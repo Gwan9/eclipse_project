@@ -1,6 +1,6 @@
+<%@page import="dao.BoardMysqlDAO"%>
 <%@page import="vo.BoardVO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dao.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,7 +23,7 @@ text-align : center;}
 <body>
 <%
 	// 전체 게시물 건수 를 출력 ?
-	BoardDAO dao = new BoardDAO();
+	BoardMysqlDAO dao = new BoardMysqlDAO();
 	int totalcount = dao.getTotalCount();
 	
 
@@ -100,7 +100,7 @@ text-align : center;}
 			<th>조회수</th>
 		</tr>
 		<%
-		ArrayList<BoardVO> list = dao.selectAll(startNo, endNo);
+		ArrayList<BoardVO> list = dao.selectAll(startNo, recordPerPage);
 		for(BoardVO vo : list){
 		%>
 		<tr>
@@ -127,5 +127,5 @@ text-align : center;}
 		</td>
 		</tr>
 	</table>
-</body>				c
+</body>				
 </html>

@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vo.EmpVO;
-import vo.MemberVO;
 
 public class EmpDAO {
 
@@ -33,30 +32,6 @@ public class EmpDAO {
 			System.out.println("DB 연결 실패");
 			e.printStackTrace();
 		}
-	}
-public EmpVO getOne(int empno) {
-		
-		
-		// 4. SQL 문장
-		sb.setLength(0);
-		sb.append("select ename from emp where empno = ?");
-		// 5. 문장객체
-		EmpVO vo = new EmpVO();
-		try {
-			pstmt = conn.prepareStatement(sb.toString());
-			pstmt.setInt(1, empno);
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				
-				vo.setEname(rs.getString("ename")); 
-			}
-		} catch (SQLException e) {			
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return vo;
-
 	}
 	
 	public ArrayList<EmpVO> selectAll(){
@@ -89,6 +64,30 @@ public EmpVO getOne(int empno) {
 		
 		return list;
 		
+	}
+public EmpVO getOne(int empno) {
+		
+		
+		// 4. SQL 문장
+		sb.setLength(0);
+		sb.append("select ename from emp where empno = ?");
+		// 5. 문장객체
+		EmpVO vo = new EmpVO();
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, empno);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				vo.setEname(rs.getString("ename")); 
+			}
+		} catch (SQLException e) {			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vo;
+
 	}
 	
 	

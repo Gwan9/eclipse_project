@@ -10,13 +10,54 @@ table {
 	margin: auto;
 }
 </style>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="../js/httpRequest.js"></script>
 <script>
-var mail = document.getElementById('mail')
+// 중복확인 버튼을 누르면 콘솔에 메세지 출력
+
 $(function(){
-	$(#mail).chage(function(){
-		$("#email2").attr("value",mail);
-	})
+	// id가 id 인 엘리먼트에 타자를 칠 때마다 메세지를 콘솔에 출력
+	$("#id").on("keyup", checkup)
+	$("#중복확인").on("click", checkup)
 })
+
+function checkup(){
+	$("#id").on("keyup", function(){
+		console.log("키보드 눌림")
+		console.log("중복확인 버튼 눌림");
+		console.log($("#id").val());
+		var txt = $("#id").val().trim();
+		if(txt == ''){
+			$("#msg").html('');
+		}else{
+			var params = "id="+txt;
+			sendRequest("idCheckup.jsp", params, callback, "GET");
+		}
+		
+	})
+}
+
+
+
+	function callback(){
+			//console.log("test");
+			// 통신완료 && 정상페이지 라면
+			if(xhr.readyState == 4 && xhr.status == 200){
+				var msg = xhr.responseText.trim();
+				console.log(msg);
+				// 만약 응답이 true라면 div에 사용가능합니다. <h3>라는 메세지 출력
+				// false 라면 아이디가 존재합니다. <h3> 로 출력
+				
+				if( msg == 'true' ){ 
+					$("#msg").html("<h3>사용가능합니다.</h3>");
+				}else {
+					$("#msg").html("<h3>아이디가 존재합니다.</h3>");
+				}
+			}
+		}
+
 
 </script>
 </head>
@@ -38,7 +79,7 @@ $(function(){
 			</caption>
 			<tr>
 				<td>ID:</td>
-				<td><input type="text" name="id" /></td>
+				<td><input type="text" name="id" id='id' /></td>
 				<td><input type="button" value="중복확인" id="중복확인" /></td>
 				<td><div id=msg></div></td>
 			</tr>

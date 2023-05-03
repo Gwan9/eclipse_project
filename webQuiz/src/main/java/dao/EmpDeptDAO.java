@@ -6,22 +6,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import vo.EmpDeptVO;
 
-import vo.EmpVO;
-import vo.MemberVO;
+public class EmpDeptDAO {
 
-public class EmpDAO {
-
+	
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 	String user = "scott";
 	String password = "tiger";
-	Connection conn ;
+	Connection conn;
 	PreparedStatement pstmt;
 	ResultSet rs;
 	StringBuffer sb = new StringBuffer();
 	
-	public EmpDAO() {
+	public EmpDeptDAO() {
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, user, password);
@@ -34,64 +33,39 @@ public class EmpDAO {
 			e.printStackTrace();
 		}
 	}
-public EmpVO getOne(int empno) {
+	
+	
+	public ArrayList<EmpDeptVO> selectAll(){
+		ArrayList<EmpDeptVO> list = new ArrayList<EmpDeptVO>();
 		
+		sb.append("select empno, ename, sal, e.deptno, dname, loc ");
+		sb.append("from emp e, dept d ");
+		sb.append("where e.deptno = d.deptno ");
 		
-		// 4. SQL 문장
-		sb.setLength(0);
-		sb.append("select ename from emp where empno = ?");
-		// 5. 문장객체
-		EmpVO vo = new EmpVO();
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
-			pstmt.setInt(1, empno);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				
-				vo.setEname(rs.getString("ename")); 
-			}
-		} catch (SQLException e) {			
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return vo;
-
-	}
-	
-	public ArrayList<EmpVO> selectAll(){
-		ArrayList<EmpVO> list = new ArrayList<EmpVO>();
-		
-		sb.setLength(0);
-		sb.append("select * from emp");
-		
-		try {
-			pstmt = conn.prepareStatement(sb.toString());
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()){
-				int no = rs.getInt("empno");
+				int empno = rs.getInt("empno");
 				String ename = rs.getString("ename");
-				int mgr = rs.getInt("mgr");
-				String hiredate = rs.getString("hiredate");
 				int sal = rs.getInt("sal");
-				int comm = rs.getInt("comm");
 				int deptno = rs.getInt("deptno");
-				EmpVO vo = new EmpVO(no,ename,hiredate, mgr,hiredate,sal,comm,deptno);
+				String dname = rs.getString("dname");
+				String loc = rs.getString("loc");
+				
+				EmpDeptVO vo = new EmpDeptVO(empno,ename,sal,deptno,dname,loc);
+//				System.out.println(vo.getDeptno());
+				
 				list.add(vo);
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
 		return list;
-		
 	}
-	
-	
 	public void closed() {
 		// 자원반납
 		// 8. 자원반납
@@ -105,11 +79,6 @@ public EmpVO getOne(int empno) {
 				e.printStackTrace();
 			}
 	}
-	
-	
-	
-	
-	
 	
 	
 	

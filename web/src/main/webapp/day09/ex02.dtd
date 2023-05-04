@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 엘리먼트(자식엘리먼트)기호
+	+ : 1개 이상을 의미
+	Parsed(읽어서 해석?한다는 뜻) Character Data : PCDATA -->
+
+<!ELEMENT department (dept)+ >
+<!ELEMENT dept (deptno, dname, loc) >
+<!ELEMENT deptno (#PCDATA) >
+<!ELEMENT dname (#PCDATA) >
+<!ELEMENT loc (#PCDATA) >

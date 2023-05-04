@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 어떤 엘리먼트가 사용될 수 있는지 정의할 수  있다. -->
+<!-- 
+<!DOCTYPE department SYSTEM "ex02.dtd" > -->
+<!-- department>dept>deptno{10}+dname{ACCOUNTING}+loc{NEW YORK}
+	공용 : public
+	사용자정의 : SYSTEM -->

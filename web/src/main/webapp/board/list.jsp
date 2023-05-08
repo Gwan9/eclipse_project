@@ -22,6 +22,13 @@ text-align : center;}
 </head>
 <body>
 <%
+
+	/* 로그인 되어 있을 때 만 화면에 출력
+	그렇지 않으면 login.jsp로 되돌려 보내기 */
+	
+	Object obj = session.getAttribute("vo");
+	if( obj == null )
+		response.sendRedirect("../day10/login.jsp"); 	
 	// 전체 게시물 건수 를 출력 ?
 	BoardDAO dao = new BoardDAO();
 	int totalcount = dao.getTotalCount();
@@ -83,12 +90,12 @@ text-align : center;}
 		endPage = currentPage+4;
 	}
 		
-	out.println("<h5> 총 게시물의 수 : " + totalcount + " </h5>");
+	/* out.println("<h5> 총 게시물의 수 : " + totalcount + " </h5>");
 	out.println("<h5> 한 페이지당 게시물 건수 : " + recordPerPage + " </h5>");
 	out.println("<h5> 총 페이지 수 : " + totalPage + " </h5>");
 	out.println("<h5> 현재 페이지 번호 : " + totalPage + " </h5>");
 	out.println("<h5> 시작 번호 : " + startNo + " </h5>");
-	out.println("<h5> 끝 번호 : " + endNo + " </h5>");
+	out.println("<h5> 끝 번호 : " + endNo + " </h5>"); */
 	
 	
 %>

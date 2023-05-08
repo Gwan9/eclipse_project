@@ -36,32 +36,32 @@ public class MemberDAO {
 	} // 기본생성자 end
 	
 	// id와 pw 입력하면 vo객체를 리턴하는 메서드
-//	public MemberVO getOne(String id, String pwd) {
-//		
-//		sb.setLength(0);
-//		// 4. SQL 문장
-//		sb.append("select * from member where id = ? and pw = ?");
-//		// 5. 문장객체
-//		MemberVO vo = null;
-//		try {
-//			pstmt = conn.prepareStatement(sb.toString());
-//			pstmt.setString(1,id);
-//			pstmt.setString(2,pwd);
-//			
-//			rs = pstmt.executeQuery();
-//			while(rs.next()) {
-//				int no = rs.getInt("no");
-//				String name = rs.getString("name");
-//				String gender = rs.getString("gender");
-//				String motive = rs.getString("motive");
-//				vo = new MemberVO(no, id, pwd, name, gender, motive);
-//			}
-//		} catch (SQLException e) {			
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return vo;
-//	}
+	public MemberVO getOne(String id, String pwd) {
+		
+		sb.setLength(0);
+		// 4. SQL 문장
+		sb.append("select * from member where id = ? and pw = ?");
+		// 5. 문장객체
+		MemberVO vo = null;
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setString(1,id);
+			pstmt.setString(2,pwd);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int no = rs.getInt("no");
+				String name = rs.getString("name");
+				String gender = rs.getString("gender");
+				String motive = rs.getString("motive");
+				vo = new MemberVO(no, id, pwd, name, gender, motive);
+			}
+		} catch (SQLException e) {			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vo;
+	}
 public MemberVO getOne(String id) {
 		
 		

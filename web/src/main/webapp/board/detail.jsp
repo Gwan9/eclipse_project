@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>detail.jsp</title>
+
 <style>
 table{
 width : 900px;
